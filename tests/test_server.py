@@ -262,5 +262,17 @@ class BackendTests(unittest.TestCase):
         self.assertEqual(self.request(self.admin, f"/api/prices/{price_id}", method="DELETE")[0], 200)
         self.assertEqual(self.request(farmer, "/api/prices")[1]["prices"], [])
 
+    def test_cross_origin_write_is_rejected(self):
+        request = urllib.request.Request(
+            self.base + "/api/weather", data=b"{}",
+            headers={"Content-Type": "application/json", "Origin": "https://untrusted.example"},
+            method="POST",
+        )
+        try:
+            response = self.admin.open(request)
+        except urllib.error.HTTPError as error:
+            response = error
+        self.assertEqual(response.code, 403)
+
 if __name__ == "__main__":
     unittest.main()
