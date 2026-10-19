@@ -172,5 +172,14 @@ class BackendTests(unittest.TestCase):
         }, "POST")
         self.assertEqual(status, 400)
 
+    def test_price_rejects_unsupported_units(self):
+        farmer = self.client()
+        self.register(farmer, "bad-unit@example.test")
+        status, _ = self.request(farmer, "/api/prices", {
+            "market": "Market A", "variety": "Grapes", "price": 40,
+            "unit": "crate", "price_date": "2026-10-18", "source": ""
+        }, "POST")
+        self.assertEqual(status, 400)
+
 if __name__ == "__main__":
     unittest.main()
