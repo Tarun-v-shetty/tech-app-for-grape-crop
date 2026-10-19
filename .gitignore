@@ -1,0 +1,5 @@
+__pycache__/
+*.py[cod]
+grape_app.sqlite3
+grape_app.sqlite3-shm
+grape_app.sqlite3-wal
