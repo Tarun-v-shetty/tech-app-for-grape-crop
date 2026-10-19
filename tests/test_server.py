@@ -166,5 +166,11 @@ class BackendTests(unittest.TestCase):
         }, "POST")
         self.assertEqual(status, 400)
 
+    def test_registration_rejects_invalid_email_addresses(self):
+        status, _ = self.request(self.client(), "/api/register", {
+            "name": "Farmer", "email": "not-an-email", "password": "correct-horse-battery"
+        }, "POST")
+        self.assertEqual(status, 400)
+
 if __name__ == "__main__":
     unittest.main()
