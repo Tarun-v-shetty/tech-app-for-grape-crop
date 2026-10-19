@@ -209,5 +209,15 @@ class BackendTests(unittest.TestCase):
         }, "POST")
         self.assertEqual(status, 400)
 
+    def test_weather_rejects_minimum_above_maximum_temperature(self):
+        farmer = self.client()
+        self.register(farmer, "reversed-temp@example.test")
+        status, _ = self.request(farmer, "/api/weather", {
+            "rain_chance": 20, "expected_rain": 0, "humidity": 50, "sky": "clear",
+            "min_temp": 30, "max_temp": 20, "source": "IMD",
+            "issued_on": "2026-10-19", "hints": []
+        }, "POST")
+        self.assertEqual(status, 400)
+
 if __name__ == "__main__":
     unittest.main()
