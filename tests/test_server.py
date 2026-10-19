@@ -241,5 +241,15 @@ class BackendTests(unittest.TestCase):
         self.assertEqual(self.request(self.admin, f"/api/admin/users/{user_id}/role", {"role": "advisor"}, "PATCH")[0], 200)
         self.assertEqual(self.request(farmer, "/api/me")[0], 401)
 
+    def test_advisor_cannot_list_or_manage_accounts(self):
+        farmer = self.client()
+        self.register(farmer, "advisor-check@example.test")
+        users = self.request(self.admin, "/api/admin/users")[1]["users"]
+        user_id = next(user["id"] for user in users if user["email"] == "advisor-check@example.test")
+        self.request(self.admin, f"/api/admin/users/{user_id}/role", {"role": "advisor"}, "PATCH")
+        advisor = self.client()
+        self.request(advisor, "/api/login", {"email": "advisor-check@example.test", "password": "correct-horse-battery"})
+        self.assertEqual(self.request(advisor, "/api/admin/users")[0], 403)
+
 if __name__ == "__main__":
     unittest.main()
