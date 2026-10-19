@@ -219,5 +219,13 @@ class BackendTests(unittest.TestCase):
         }, "POST")
         self.assertEqual(status, 400)
 
+    def test_admin_rejects_unknown_roles(self):
+        farmer = self.client()
+        self.register(farmer, "unknown-role@example.test")
+        users = self.request(self.admin, "/api/admin/users")[1]["users"]
+        user_id = next(user["id"] for user in users if user["email"] == "unknown-role@example.test")
+        status, _ = self.request(self.admin, f"/api/admin/users/{user_id}/role", {"role": "owner"}, "PATCH")
+        self.assertEqual(status, 400)
+
 if __name__ == "__main__":
     unittest.main()
