@@ -160,5 +160,11 @@ class BackendTests(unittest.TestCase):
         duplicate = self.client()
         self.assertEqual(self.register(duplicate, "repeat@example.test")[0], 409)
 
+    def test_registration_rejects_short_passwords(self):
+        status, _ = self.request(self.client(), "/api/register", {
+            "name": "Farmer", "email": "short@example.test", "password": "short"
+        }, "POST")
+        self.assertEqual(status, 400)
+
 if __name__ == "__main__":
     unittest.main()
