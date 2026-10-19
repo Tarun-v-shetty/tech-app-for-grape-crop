@@ -191,5 +191,13 @@ class BackendTests(unittest.TestCase):
         }, "POST")
         self.assertEqual(status, 400)
 
+    def test_diagnosis_rejects_unknown_plant_parts(self):
+        farmer = self.client()
+        self.register(farmer, "bad-part@example.test")
+        status, _ = self.request(farmer, "/api/diagnoses", {
+            "plant_part": "root", "symptoms": [], "recent_weather": "", "results": []
+        }, "POST")
+        self.assertEqual(status, 400)
+
 if __name__ == "__main__":
     unittest.main()
