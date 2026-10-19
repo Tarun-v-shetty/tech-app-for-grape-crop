@@ -227,5 +227,11 @@ class BackendTests(unittest.TestCase):
         status, _ = self.request(self.admin, f"/api/admin/users/{user_id}/role", {"role": "owner"}, "PATCH")
         self.assertEqual(status, 400)
 
+    def test_logout_invalidates_the_session(self):
+        farmer = self.client()
+        self.register(farmer, "logout@example.test")
+        self.assertEqual(self.request(farmer, "/api/logout", {}, "POST")[0], 200)
+        self.assertEqual(self.request(farmer, "/api/me")[0], 401)
+
 if __name__ == "__main__":
     unittest.main()
