@@ -251,5 +251,16 @@ class BackendTests(unittest.TestCase):
         self.request(advisor, "/api/login", {"email": "advisor-check@example.test", "password": "correct-horse-battery"})
         self.assertEqual(self.request(advisor, "/api/admin/users")[0], 403)
 
+    def test_admin_can_delete_another_users_price(self):
+        farmer = self.client()
+        self.register(farmer, "admin-delete@example.test")
+        self.request(farmer, "/api/prices", {
+            "market": "Market A", "variety": "Grapes", "price": 100,
+            "unit": "kg", "price_date": "2026-10-18", "source": ""
+        }, "POST")
+        price_id = self.request(farmer, "/api/prices")[1]["prices"][0]["id"]
+        self.assertEqual(self.request(self.admin, f"/api/prices/{price_id}", method="DELETE")[0], 200)
+        self.assertEqual(self.request(farmer, "/api/prices")[1]["prices"], [])
+
 if __name__ == "__main__":
     unittest.main()
