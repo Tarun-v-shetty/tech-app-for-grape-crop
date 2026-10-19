@@ -199,5 +199,15 @@ class BackendTests(unittest.TestCase):
         }, "POST")
         self.assertEqual(status, 400)
 
+    def test_weather_rejects_percentages_above_one_hundred(self):
+        farmer = self.client()
+        self.register(farmer, "bad-weather@example.test")
+        status, _ = self.request(farmer, "/api/weather", {
+            "rain_chance": 101, "expected_rain": 0, "humidity": 50, "sky": "clear",
+            "min_temp": 10, "max_temp": 20, "source": "IMD",
+            "issued_on": "2026-10-19", "hints": []
+        }, "POST")
+        self.assertEqual(status, 400)
+
 if __name__ == "__main__":
     unittest.main()
