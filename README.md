@@ -26,7 +26,7 @@ This repository includes a `render.yaml` Blueprint for a free Render web service
 
 The free demo stores its SQLite database at `/tmp/grape_app.sqlite3`. Free-instance files are ephemeral, so accounts, prices, and field records can be lost when the instance restarts or redeploys. The free instance may also sleep when unused and take a short time to start on the next visit. Do not use this demo for sensitive or important records. Durable storage is not configured.
 
-Render supplies the listening port through `PORT`. The server keeps its localhost/port 8000 defaults for local development. Session cookies include `Secure` when requests are forwarded over HTTPS.
+Render supplies the listening port through `PORT`. The server keeps its localhost/port 8000 defaults for local development. Session cookies include `Secure` when requests are forwarded over HTTPS. Automatic deploys are disabled for Blueprint instances; deploy the initial service in Render and manually deploy later updates.
 
 ## Roles
 

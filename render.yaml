@@ -6,7 +6,7 @@ services:
     buildCommand: python -m py_compile server.py
     startCommand: python server.py
     healthCheckPath: /health
-    autoDeploy: true
+    autoDeployTrigger: off
     envVars:
       - key: GRAPE_HOST
         value: 0.0.0.0
