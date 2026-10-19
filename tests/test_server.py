@@ -181,5 +181,15 @@ class BackendTests(unittest.TestCase):
         }, "POST")
         self.assertEqual(status, 400)
 
+    def test_price_rejects_future_dates(self):
+        from datetime import date, timedelta
+        farmer = self.client()
+        self.register(farmer, "future-date@example.test")
+        status, _ = self.request(farmer, "/api/prices", {
+            "market": "Market A", "variety": "Grapes", "price": 40,
+            "unit": "kg", "price_date": (date.today() + timedelta(days=1)).isoformat(), "source": ""
+        }, "POST")
+        self.assertEqual(status, 400)
+
 if __name__ == "__main__":
     unittest.main()
