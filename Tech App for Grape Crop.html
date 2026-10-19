@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<style>
+:root:not([data-theme="dark"]){--bg:#f4f2e9;--card:#fffefa;--tx:#20291f;--mu:#697366;--ac:#355f3b;--ac2:#e8efe3;--bd:#dce2d6;--wa:#f8f0d9;--wt:#69551e;--ok:#e5f0df;--bad:#f7e4df}
+:root[data-theme="dark"]{--bg:#151c17;--card:#202a23;--tx:#edf1e8;--mu:#aab5a8;--ac:#a3c28d;--ac2:#2b3b2d;--bd:#38463b;--wa:#3c351f;--wt:#e8d99b;--ok:#263a29;--bad:#482b29;color-scheme:dark}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]):not([data-theme="dark"]){--bg:#151c17;--card:#202a23;--tx:#edf1e8;--mu:#aab5a8;--ac:#a3c28d;--ac2:#2b3b2d;--bd:#38463b;--wa:#3c351f;--wt:#e8d99b;--ok:#263a29;--bad:#482b29;color-scheme:dark}}
+html body{background:var(--bg);font-family:Inter,"Avenir Next",Avenir,"Segoe UI",sans-serif;letter-spacing:.005em}
+body main{max-width:820px;padding:28px 22px 48px}
+.masthead{position:relative;isolation:isolate;overflow:hidden;padding:24px 26px 22px;margin:0 0 18px;border:1px solid var(--bd);border-radius:18px;background:linear-gradient(125deg,var(--card) 38%,var(--ac2));}
+.masthead:after{content:"";position:absolute;z-index:-1;width:190px;height:190px;right:-34px;top:-78px;border:1px solid color-mix(in srgb,var(--ac) 24%,transparent);border-radius:50%;box-shadow:0 0 0 18px color-mix(in srgb,var(--ac) 5%,transparent),0 0 0 38px color-mix(in srgb,var(--ac) 4%,transparent)}
+.masthead h1{font-family:Georgia,"Times New Roman",serif;font-size:clamp(1.8rem,5vw,2.55rem);font-weight:500;letter-spacing:-.035em;line-height:1.12;margin:24px 0 8px}
+.masthead .sub{max-width:610px;font-size:.96rem;line-height:1.65;margin:0;color:var(--mu)}
+.topline{display:flex;align-items:center;justify-content:space-between;gap:12px}
+.brand{display:flex;align-items:center;gap:10px;color:var(--ac);font-size:.72rem;font-weight:750;letter-spacing:.14em;text-transform:uppercase}
+.brand-icon{display:grid;place-items:center;width:34px;height:34px;border:1px solid var(--bd);border-radius:11px;background:var(--card);font-size:1.15rem}
+.lang{float:none}
+.lang button{min-height:36px;padding:5px 11px}
+.lang button.on{background:var(--ac);border-color:var(--ac);color:#fff}
+body main nav{gap:8px;margin:0 0 18px;padding:5px;border:1px solid var(--bd);border-radius:13px;background:var(--card)}
+body main nav button{min-height:46px;border-color:transparent;border-radius:9px;font-size:.94rem;font-weight:650;transition:background .16s ease,color .16s ease}
+body main nav button.on{background:var(--ac);color:#fff;border-color:var(--ac)}
+body main .card{padding:22px;margin:12px 0;border-radius:15px;box-shadow:0 5px 18px rgba(35,50,35,.045)}
+body main h2{font-size:1.18rem;letter-spacing:-.015em;margin:0 0 10px}
+body main label{font-size:.88rem;font-weight:600;color:var(--tx);margin:14px 0 6px}
+body main input,body main select{min-height:44px;padding:10px 12px;border-radius:9px;border-color:var(--bd);background:var(--card);transition:border-color .15s ease,box-shadow .15s ease}
+body main input[type="file"]{min-height:auto;padding:8px;background:var(--bg)}
+body main .row{gap:12px}
+body main .chk{gap:11px;padding:11px 4px;border-color:var(--bd);font-weight:450}
+body main .chk input{width:18px;height:18px;accent-color:var(--ac);margin:2px 0 0}
+body main button.p{min-height:46px;padding:11px 18px;border-radius:9px;font-weight:700;transition:transform .15s ease,filter .15s ease}
+body main .warn{padding:14px 16px;border:1px solid color-mix(in srgb,var(--wt) 18%,transparent);border-radius:12px;line-height:1.65}
+body main .res{padding:13px 15px;border-radius:9px;line-height:1.65}
+body main .badge{padding:3px 9px;font-weight:650}
+body main th{font-weight:700;color:var(--mu)}
+body main th,body main td{padding:10px 8px}
+body main .sm{line-height:1.6}
+.auth-card{max-width:480px;margin:48px auto}
+.auth-card h2{font-family:Georgia,"Times New Roman",serif;font-size:1.6rem;font-weight:500}
+.auth-card .p{width:100%}
+.account-bar{display:flex;align-items:center;justify-content:space-between;gap:12px;margin:-4px 0 16px;padding:10px 14px;border:1px solid var(--bd);border-radius:11px;background:var(--card)}
+.account-actions{display:flex;align-items:center;gap:10px}
+.account-role{font-size:.74rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--ac)}
+.status{padding:10px 13px;border:1px solid var(--bd);border-radius:9px;margin:10px 0;background:var(--card)}
+.status.error{border-color:#c36b58;color:#9b3928;background:var(--bad)}
+.admin-user{display:grid;grid-template-columns:1fr auto;align-items:center;gap:10px;padding:10px 0;border-bottom:1px solid var(--bd)}
+@media(max-width:560px){.auth-card{margin:28px auto}.account-bar{align-items:flex-start;flex-direction:column}.admin-user{grid-template-columns:1fr}}
+input:focus-visible,select:focus-visible,button:focus-visible{outline:3px solid color-mix(in srgb,var(--ac) 48%,transparent);outline-offset:2px}
+button.p:hover{filter:brightness(1.08);transform:translateY(-1px)}
+nav button:hover:not(.on),.lang button:hover:not(.on){background:var(--ac2)}
+@media(max-width:560px){body main{padding:14px 14px 32px}.masthead{padding:18px 18px 20px;border-radius:15px}.masthead h1{margin-top:20px}.brand{font-size:.65rem;letter-spacing:.1em}.brand-icon{width:30px;height:30px}body main .card{padding:17px}body main .row{gap:9px}body main nav button{font-size:.86rem;padding-inline:2px}}
+@media(max-width:380px){body main .row{grid-template-columns:1fr}.topline{align-items:flex-start}.lang{gap:3px}.lang button{padding-inline:8px}}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{scroll-behavior:auto!important;transition:none!important}}
+</style>
+<title>Tech App for Grape Crop</title>
+<style>
+:root{--bg:#f6f8f4;--card:#fff;--tx:#1d2a1d;--mu:#5b6b5b;--ac:#5b2a86;--ac2:#e9ddf3;--bd:#d8e0d4;--wa:#fff4d6;--wt:#6b4b00;--ok:#e3f3e3;--bad:#fde3e3;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);color-scheme:light}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#141a14;--card:#1e271e;--tx:#e8efe6;--mu:#a3b2a1;--ac:#c9a2ee;--ac2:#3a2850;--bd:#33423a;--wa:#3d3210;--wt:#f0d98a;--ok:#1f3a22;--bad:#4a2323;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#141a14;--card:#1e271e;--tx:#e8efe6;--mu:#a3b2a1;--ac:#c9a2ee;--ac2:#3a2850;--bd:#33423a;--wa:#3d3210;--wt:#f0d98a;--ok:#1f3a22;--bad:#4a2323;color-scheme:dark}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--tx);font:16px/1.5 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+main{max-width:720px;margin:0 auto;padding:14px}
+h1{font-size:1.25rem;margin:4px 0 2px}h2{font-size:1.05rem;margin:0 0 8px}
+.sub{color:var(--mu);font-size:.85rem;margin:0 0 10px}
+nav{display:flex;gap:6px;margin:10px 0}nav button{flex:1;padding:10px 4px;border:1px solid var(--bd);background:var(--card);color:var(--tx);border-radius:10px;font:inherit;font-size:.9rem;cursor:pointer}
+nav button.on{background:var(--ac);color:#fff;border-color:var(--ac)}
+@media (prefers-color-scheme:dark){nav button.on{color:#141a14}}
+.card{background:var(--card);border:1px solid var(--bd);border-radius:12px;padding:14px;margin:10px 0}
+.warn{background:var(--wa);color:var(--wt);border-radius:10px;padding:10px;font-size:.85rem;margin:10px 0}
+label{display:block;font-size:.85rem;color:var(--mu);margin:8px 0 3px}
+input,select{width:100%;padding:9px;border:1px solid var(--bd);border-radius:8px;background:var(--bg);color:var(--tx);font:inherit}
+.row{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.chk{display:flex;gap:8px;align-items:flex-start;padding:7px 0;border-bottom:1px solid var(--bd);font-size:.92rem}.chk input{width:auto;margin-top:4px}
+button.p{background:var(--ac);color:#fff;border:0;border-radius:8px;padding:10px 14px;font:inherit;cursor:pointer;margin-top:10px}
+@media (prefers-color-scheme:dark){button.p{color:#141a14}}
+button.g{background:none;border:0;color:var(--mu);cursor:pointer;font:inherit;font-size:.8rem}
+.res{border-left:4px solid var(--ac);padding:8px 10px;margin:8px 0;background:var(--ac2);border-radius:6px}
+.badge{display:inline-block;font-size:.75rem;padding:1px 8px;border-radius:10px;background:var(--ok)}.badge.s{background:var(--bad)}
+table{width:100%;border-collapse:collapse;font-size:.85rem}th,td{text-align:left;padding:6px 4px;border-bottom:1px solid var(--bd)}
+.wrap{overflow-x:auto}.hid{display:none}.sm{font-size:.8rem;color:var(--mu)}
+.lang{display:flex;gap:4px;float:right}.lang button{padding:4px 10px;border:1px solid var(--bd);background:var(--card);color:var(--tx);border-radius:8px;cursor:pointer;font:inherit;font-size:.8rem}.lang button.on{background:var(--ac);color:#fff}img.ph{max-width:100%;max-height:240px;border-radius:10px;margin-top:8px;display:block}</style></head><body><main>
+<section id="auth" class="card auth-card" aria-labelledby="auth-title">
+<div class="lang"><button type="button" data-l="en">English</button><button type="button" data-l="kn">ಕನ್ನಡ</button></div>
+<h2 id="auth-title" data-i="signIn"></h2>
+<p class="sm" data-i="authIntro"></p>
+<form id="auth-form">
+<div id="name-wrap" class="hid"><label for="auth-name" data-i="nameLabel"></label><input id="auth-name" autocomplete="name" maxlength="80"></div>
+<label for="auth-email" data-i="emailLabel"></label><input id="auth-email" type="email" autocomplete="username" maxlength="254" required>
+<label for="auth-password" data-i="passwordLabel"></label><input id="auth-password" type="password" autocomplete="current-password" minlength="12" maxlength="256" required>
+<button class="p" id="auth-submit" type="submit" data-i="signIn"></button>
+</form>
+<button class="g" id="auth-toggle" type="button" data-i="createAccount"></button>
+</section>
+<div id="app-shell" class="hid">
+<header class="masthead">
+<div class="topline"><div class="brand"><span class="brand-icon" aria-hidden="true">🍇</span><span>Vineyard field notes</span></div><div class="lang"><button data-l="en">English</button><button data-l="kn">ಕನ್ನಡ</button></div></div>
+<h1><span data-i="title"></span></h1>
+<p class="sub" data-i="sub"></p>
+</header>
+<div class="account-bar"><span id="account-name"></span><div class="account-actions"><span id="account-role" class="account-role"></span><button id="logout" type="button" class="g" data-i="signOut"></button></div></div>
+<div id="notice" class="status hid" role="status" aria-live="polite"></div>
+<section id="admin-panel" class="card hid"><h2 data-i="userManagement"></h2><p class="sm" data-i="roleHelp"></p><div id="users"></div></section>
+<section id="records-panel" class="card hid"><h2 data-i="recordsTitle"></h2><div id="records"></div></section>
+<nav id="nav" role="tablist" aria-label="App sections / ಅಪ್ಲಿಕೇಶನ್ ವಿಭಾಗಗಳು"><button id="tab-d" type="button" role="tab" aria-controls="d" aria-selected="true" tabindex="0" data-t="d" class="on" data-i="tD"></button><button id="tab-m" type="button" role="tab" aria-controls="m" aria-selected="false" tabindex="-1" data-t="m" data-i="tM"></button><button id="tab-w" type="button" role="tab" aria-controls="w" aria-selected="false" tabindex="-1" data-t="w" data-i="tW"></button></nav>
+
+<section id="d" role="tabpanel" aria-labelledby="tab-d">
+<div class="card"><h2 data-i="dh"></h2>
+<label data-i="photo"></label><input id="pic" type="file" accept="image/*" capture="environment">
+<img id="pv" class="ph hid" alt=""><p class="sm" data-i="photoNote"></p>
+<label data-i="part"></label>
+<select id="part"><option value="leaf" data-i="leaf"></option><option value="shoot" data-i="shoot"></option><option value="bunch" data-i="bunch"></option></select>
+<label data-i="tick"></label><div id="syms"></div>
+<label data-i="wxl"></label>
+<select id="wx"><option value="" data-i="wx0"></option><option value="wet" data-i="wxWet"></option><option value="cloud" data-i="wxCloud"></option><option value="dry" data-i="wxDry"></option></select>
+<button class="p" id="go" data-i="go"></button></div>
+<div id="out"></div>
+<div class="warn" data-i="disc"></div>
+</section>
+
+<section id="m" role="tabpanel" aria-labelledby="tab-m" class="hid">
+<div class="card"><h2 data-i="mh"></h2><p class="sm" data-i="mintro"></p>
+<div class="row"><div><label data-i="mk"></label><input id="mk" data-p="phMk"></div><div><label data-i="vr"></label><input id="vr" data-p="phVr"></div></div>
+<div class="row"><div><label data-i="pr"></label><input id="pr" type="number" min="0" step="0.5"></div>
+<div><label data-i="un"></label><select id="un"><option value="kg" data-i="ukg"></option><option value="q" data-i="uq"></option></select></div></div>
+<div class="row"><div><label data-i="dt"></label><input id="dt" type="date"></div><div><label data-i="sr"></label><input id="sr" data-p="phSr"></div></div>
+<button class="p" id="add" data-i="add"></button></div>
+<div class="card"><h2 data-i="cmp"></h2>
+<div class="row"><div><label data-i="ex"></label><input id="ex" type="number" min="0" value="0" step="0.5"></div><div></div></div>
+<div class="wrap"><table><thead><tr><th data-i="thM"></th><th data-i="thT"></th><th>₹/kg</th><th data-i="thN"></th><th data-i="thD"></th></tr></thead><tbody id="tb"></tbody></table></div>
+<p class="sm" id="mnote"></p><button class="g" id="clr" data-i="clr"></button></div>
+<div class="warn" data-i="mdisc"></div>
+</section>
+
+<section id="w" role="tabpanel" aria-labelledby="tab-w" class="hid">
+<div class="card"><h2 data-i="wh"></h2><p class="sm" data-i="wintro"></p>
+<div class="row"><div><label data-i="rc"></label><input id="rc" type="number" min="0" max="100"></div><div><label data-i="rm"></label><input id="rm" type="number" min="0"></div></div>
+<div class="row"><div><label data-i="hu"></label><input id="hu" type="number" min="0" max="100"></div>
+<div><label data-i="sk"></label><select id="sk"><option value="clear" data-i="sk1"></option><option value="part" data-i="sk2"></option><option value="over" data-i="sk3"></option></select></div></div>
+<div class="row"><div><label data-i="tn"></label><input id="tn" type="number"></div><div><label data-i="tx"></label><input id="tx" type="number"></div></div>
+<div class="row"><div><label data-i="fs"></label><input id="fs" data-p="phFs"></div><div><label data-i="fi"></label><input id="fi" type="date"></div></div>
+<button class="p" id="wg" data-i="wg"></button></div>
+<div id="wout"></div>
+<div class="warn" data-i="wdisc"></div>
+</section>
+</div>
+</main>
+<script>
+const $=i=>document.getElementById(i);
+const I={en:{title:"Vineyard fieldbook",sub:"Practical tools for checking vine symptoms, comparing market prices and planning around the weather.",tD:"Disease",tM:"Market",tW:"Weather",
+dh:"Symptom-based disease check",photo:"Add a photo to compare (optional)",photoNote:"The photo stays on this phone. The app does not analyse it. Use it to compare with the signs listed below, then tick what matches.",part:"Plant part affected",leaf:"Leaf",shoot:"Young shoot",bunch:"Bunch / berries",tick:"Tick what you see",wxl:"Recent weather",wx0:"Not sure",wxWet:"Humid or rainy days",wxCloud:"Cloudy, mild, mostly no rain",wxDry:"Hot and dry",go:"Show possible matches",
+matches:"Possible matches",none:"Nothing selected matches. Show the problem to an expert; it may be another disease, pest or nutrient problem.",rank:"These are possibilities ranked by how many listed signs you ticked. Please get them confirmed by an expert.",l3:"Several signs match",l2:"Some signs match",l1:"Few signs match",
+disc:"<b>Not a diagnosis.</b> Symptoms of different diseases and other problems (nutrient deficiency, spray injury, pests) can look alike. Show the affected parts to a horticulture officer, Krishi Vigyan Kendra or ICAR-NRCG before any treatment. This app gives no chemical names or doses; follow the product label and current official guidance.",
+mh:"Add a price you found",mintro:"Enter prices from Agmarknet, e-NAM, the market committee or a trader. Saved prices are shared with signed-in users; field notes stay private to your account.",mk:"Market",vr:"Type / variety",pr:"Price (₹)",un:"Unit",ukg:"per kg",uq:"per quintal",dt:"Price date",sr:"Source",add:"Save price",phMk:"e.g. Vijayapura APMC",phVr:"e.g. Thompson Seedless",phSr:"e.g. Agmarknet, trader",
+cmp:"Compare markets (latest per market)",ex:"Extra cost per kg (₹): transport, commission",thM:"Market",thT:"Type",thN:"Net ₹/kg",thD:"Date",old:"old",nop:"No prices saved yet.",spread:"Spread between highest and lowest listed: ₹{x}/kg. Compare only the same variety and grade.",clr:"Clear all saved prices",cc:"Delete all saved prices?",al:"Please enter market, price and date.",grapes:"Grapes",
+mdisc:"Prices differ by market, grade, variety and date. Entries older than 3 days are flagged. A listed price is not the amount you will receive; this is information, not advice to sell or hold.",
+wh:"Weather planner",wintro:"Enter the forecast from IMD, the Meghdoot app or your KVK advisory. The app turns it into planning hints. It does not fetch weather.",rc:"Rain chance (%)",rm:"Expected rain (mm)",hu:"Humidity (%)",sk:"Sky",sk1:"Mostly clear",sk2:"Partly cloudy",sk3:"Cloudy / overcast",tn:"Min temp (°C)",tx:"Max temp (°C)",fs:"Forecast source",fi:"Issued on",phFs:"e.g. Meghdoot",wg:"Show hints",
+hint:"Planning hints",att:"attention",
+h1:"Downy mildew watch",h1a:"Wet or humid conditions are forecast. Inspect leaves and bunches closely and ask your expert about protective measures.",h1b:"Conditions look less favourable for downy mildew, but keep checking after any rain.",
+h2:"Powdery mildew watch",h2a:"Cloudy, mild weather with little rain is forecast, which suits powdery mildew. Look for white powdery coating.",h2b:"Not the typical cloudy, 20–25 °C pattern, but powdery mildew can still occur.",
+h3:"Spraying window",h3a:"Rain is likely, so a spray may be washed off. Check timing with your advisory and the product label.",h3b:"Low rain chance. If a spray is advised, this may suit it; follow the label.",
+h4:"Irrigation",h4a:"Good rain expected. You may be able to delay irrigation; check soil moisture first.",h4b:"Little rain expected. Plan irrigation by soil moisture and vine stage.",
+h5:"Harvest and drying",h5a:"Rain risk can affect harvest, transport and raisin drying. Plan covers and timing.",h5b:"Drier outlook. Confirm berry maturity and market schedule.",
+base:"Based on",iss:"issued",nos:"Forecast source not stated.",unc:"Forecasts are uncertain and vary by location.",
+wdisc:"Hints use simple rules based on conditions described in the ICAR-NRCG grape bulletin (moisture for downy mildew; cloudy, 20–25 °C weather for powdery mildew). The thresholds are illustrative and not validated. Always follow official IMD warnings and your agromet advisory."},
+kn:{title:"ದ್ರಾಕ್ಷಿ ತೋಟದ ಸಹಾಯಕ",sub:"ಬಳ್ಳಿಯ ಲಕ್ಷಣ ಪರಿಶೀಲನೆ, ಮಾರುಕಟ್ಟೆ ದರ ಹೋಲಿಕೆ ಮತ್ತು ಹವಾಮಾನ ಯೋಜನೆಗೆ ಸರಳ ಸಾಧನಗಳು.",tD:"ರೋಗ",tM:"ಮಾರುಕಟ್ಟೆ",tW:"ಹವಾಮಾನ",
+dh:"ಲಕ್ಷಣ ಆಧಾರಿತ ರೋಗ ಪರಿಶೀಲನೆ",photo:"ಹೋಲಿಸಲು ಫೋಟೋ ಸೇರಿಸಿ (ಐಚ್ಛಿಕ)",photoNote:"ಫೋಟೋ ಈ ಫೋನ್‌ನಲ್ಲಿಯೇ ಇರುತ್ತದೆ. ಆ್ಯಪ್ ಅದನ್ನು ವಿಶ್ಲೇಷಿಸುವುದಿಲ್ಲ. ಕೆಳಗಿನ ಲಕ್ಷಣಗಳೊಂದಿಗೆ ಹೋಲಿಸಿ, ಹೊಂದುವುದನ್ನು ಟಿಕ್ ಮಾಡಿ.",part:"ಬಾಧಿತ ಭಾಗ",leaf:"ಎಲೆ",shoot:"ಎಳೆಯ ಚಿಗುರು",bunch:"ಗೊಂಚಲು / ಹಣ್ಣುಗಳು",tick:"ನೀವು ನೋಡುವುದನ್ನು ಟಿಕ್ ಮಾಡಿ",wxl:"ಇತ್ತೀಚಿನ ಹವಾಮಾನ",wx0:"ಖಚಿತವಿಲ್ಲ",wxWet:"ಆರ್ದ್ರ ಅಥವಾ ಮಳೆಯ ದಿನಗಳು",wxCloud:"ಮೋಡ, ಸೌಮ್ಯ ಹವೆ, ಬಹುತೇಕ ಮಳೆ ಇಲ್ಲ",wxDry:"ಬಿಸಿ ಮತ್ತು ಒಣ",go:"ಸಂಭವನೀಯ ರೋಗಗಳನ್ನು ತೋರಿಸಿ",
+matches:"ಸಂಭವನೀಯ ರೋಗಗಳು",none:"ಆಯ್ದವು ಯಾವುದಕ್ಕೂ ಹೊಂದುವುದಿಲ್ಲ. ಸಮಸ್ಯೆಯನ್ನು ತಜ್ಞರಿಗೆ ತೋರಿಸಿ; ಇದು ಬೇರೆ ರೋಗ, ಕೀಟ ಅಥವಾ ಪೋಷಕಾಂಶ ಕೊರತೆಯಾಗಿರಬಹುದು.",rank:"ಇವು ನೀವು ಟಿಕ್ ಮಾಡಿದ ಲಕ್ಷಣಗಳ ಆಧಾರದ ಮೇಲಿನ ಸಾಧ್ಯತೆಗಳು ಮಾತ್ರ. ದಯವಿಟ್ಟು ತಜ್ಞರಿಂದ ದೃಢೀಕರಿಸಿ.",l3:"ಹಲವು ಲಕ್ಷಣಗಳು ಹೊಂದುತ್ತವೆ",l2:"ಕೆಲವು ಲಕ್ಷಣಗಳು ಹೊಂದುತ್ತವೆ",l1:"ಕೆಲವೇ ಲಕ್ಷಣಗಳು ಹೊಂದುತ್ತವೆ",
+disc:"<b>ಇದು ರೋಗನಿರ್ಣಯವಲ್ಲ.</b> ವಿವಿಧ ರೋಗಗಳು ಮತ್ತು ಇತರ ಸಮಸ್ಯೆಗಳ (ಪೋಷಕಾಂಶ ಕೊರತೆ, ಸಿಂಪರಣೆ ಹಾನಿ, ಕೀಟಗಳು) ಲಕ್ಷಣಗಳು ಒಂದೇ ರೀತಿ ಕಾಣಬಹುದು. ಯಾವುದೇ ಚಿಕಿತ್ಸೆಗೆ ಮೊದಲು ಬಾಧಿತ ಭಾಗಗಳನ್ನು ತೋಟಗಾರಿಕಾ ಅಧಿಕಾರಿ, ಕೃಷಿ ವಿಜ್ಞಾನ ಕೇಂದ್ರ ಅಥವಾ ICAR-NRCG ಗೆ ತೋರಿಸಿ. ಈ ಆ್ಯಪ್ ರಾಸಾಯನಿಕ ಹೆಸರು ಅಥವಾ ಪ್ರಮಾಣ ನೀಡುವುದಿಲ್ಲ; ಉತ್ಪನ್ನದ ಲೇಬಲ್ ಮತ್ತು ಪ್ರಸ್ತುತ ಅಧಿಕೃತ ಮಾರ್ಗದರ್ಶನ ಪಾಲಿಸಿ.",
+mh:"ನಿಮಗೆ ಸಿಕ್ಕ ದರವನ್ನು ಸೇರಿಸಿ",mintro:"ಅಗ್ಮಾರ್ಕ್‌ನೆಟ್, ಇ-ನಾಮ್, ಮಾರುಕಟ್ಟೆ ಸಮಿತಿ ಅಥವಾ ವ್ಯಾಪಾರಿಯಿಂದ ಪಡೆದ ದರಗಳನ್ನು ಸೇರಿಸಿ. ಉಳಿಸಿದ ದರಗಳು ಸೈನ್ ಇನ್ ಮಾಡಿದ ಎಲ್ಲರಿಗೂ ಕಾಣುತ್ತವೆ; ತೋಟದ ಟಿಪ್ಪಣಿಗಳು ನಿಮ್ಮ ಖಾತೆಗೆ ಮಾತ್ರ.",mk:"ಮಾರುಕಟ್ಟೆ",vr:"ವಿಧ / ತಳಿ",pr:"ದರ (₹)",un:"ಏಕಮಾನ",ukg:"ಪ್ರತಿ ಕೆ.ಜಿ.",uq:"ಪ್ರತಿ ಕ್ವಿಂಟಲ್",dt:"ದರದ ದಿನಾಂಕ",sr:"ಮೂಲ",add:"ದರ ಉಳಿಸಿ",phMk:"ಉದಾ. ವಿಜಯಪುರ ಎಪಿಎಂಸಿ",phVr:"ಉದಾ. ಥಾಂಪ್ಸನ್ ಸೀಡ್‌ಲೆಸ್",phSr:"ಉದಾ. ಅಗ್ಮಾರ್ಕ್‌ನೆಟ್, ವ್ಯಾಪಾರಿ",
+cmp:"ಮಾರುಕಟ್ಟೆಗಳ ಹೋಲಿಕೆ (ಪ್ರತಿ ಮಾರುಕಟ್ಟೆಯ ಇತ್ತೀಚಿನದು)",ex:"ಪ್ರತಿ ಕೆ.ಜಿ.ಗೆ ಹೆಚ್ಚುವರಿ ವೆಚ್ಚ (₹): ಸಾಗಣೆ, ಕಮಿಷನ್",thM:"ಮಾರುಕಟ್ಟೆ",thT:"ವಿಧ",thN:"ನಿವ್ವಳ ₹/ಕೆ.ಜಿ.",thD:"ದಿನಾಂಕ",old:"ಹಳೆಯದು",nop:"ಇನ್ನೂ ಯಾವುದೇ ದರ ಉಳಿಸಿಲ್ಲ.",spread:"ಅತಿ ಹೆಚ್ಚು ಮತ್ತು ಅತಿ ಕಡಿಮೆ ದರದ ಅಂತರ: ₹{x}/ಕೆ.ಜಿ. ಒಂದೇ ತಳಿ ಮತ್ತು ದರ್ಜೆಯನ್ನು ಮಾತ್ರ ಹೋಲಿಸಿ.",clr:"ಉಳಿಸಿದ ಎಲ್ಲಾ ದರಗಳನ್ನು ಅಳಿಸಿ",cc:"ಉಳಿಸಿದ ಎಲ್ಲಾ ದರಗಳನ್ನು ಅಳಿಸಬೇಕೇ?",al:"ದಯವಿಟ್ಟು ಮಾರುಕಟ್ಟೆ, ದರ ಮತ್ತು ದಿನಾಂಕ ನಮೂದಿಸಿ.",grapes:"ದ್ರಾಕ್ಷಿ",
+mdisc:"ದರಗಳು ಮಾರುಕಟ್ಟೆ, ದರ್ಜೆ, ತಳಿ ಮತ್ತು ದಿನಾಂಕದ ಪ್ರಕಾರ ಬೇರೆಯಾಗಿರುತ್ತವೆ. 3 ದಿನಕ್ಕಿಂತ ಹಳೆಯ ದಾಖಲೆಗಳಿಗೆ ಗುರುತು ಇರುತ್ತದೆ. ತೋರಿಸಿದ ದರವೇ ನಿಮಗೆ ಸಿಗುವ ಮೊತ್ತವಲ್ಲ; ಇದು ಮಾಹಿತಿ ಮಾತ್ರ, ಮಾರಾಟ ಮಾಡಲು ಅಥವಾ ಹಿಡಿದಿಡಲು ಸಲಹೆಯಲ್ಲ.",
+wh:"ಹವಾಮಾನ ಯೋಜನೆ",wintro:"IMD, ಮೇಘದೂತ ಆ್ಯಪ್ ಅಥವಾ ನಿಮ್ಮ ಕೃಷಿ ವಿಜ್ಞಾನ ಕೇಂದ್ರದ ಮುನ್ಸೂಚನೆಯನ್ನು ನಮೂದಿಸಿ. ಆ್ಯಪ್ ಅದನ್ನು ಯೋಜನಾ ಸೂಚನೆಗಳಾಗಿ ಬದಲಾಯಿಸುತ್ತದೆ. ಇದು ಹವಾಮಾನ ತರುವುದಿಲ್ಲ.",rc:"ಮಳೆ ಸಾಧ್ಯತೆ (%)",rm:"ನಿರೀಕ್ಷಿತ ಮಳೆ (ಮಿ.ಮೀ.)",hu:"ಆರ್ದ್ರತೆ (%)",sk:"ಆಕಾಶ",sk1:"ಬಹುತೇಕ ಸ್ಪಷ್ಟ",sk2:"ಭಾಗಶಃ ಮೋಡ",sk3:"ಮೋಡ ಕವಿದಿದೆ",tn:"ಕನಿಷ್ಠ ಉಷ್ಣತೆ (°C)",tx:"ಗರಿಷ್ಠ ಉಷ್ಣತೆ (°C)",fs:"ಮುನ್ಸೂಚನೆಯ ಮೂಲ",fi:"ಬಿಡುಗಡೆ ದಿನಾಂಕ",phFs:"ಉದಾ. ಮೇಘದೂತ",wg:"ಸೂಚನೆಗಳನ್ನು ತೋರಿಸಿ",
+hint:"ಯೋಜನಾ ಸೂಚನೆಗಳು",att:"ಗಮನಿಸಿ",
+h1:"ಡೌನಿ ಮಿಲ್ಡ್ಯೂ ಜಾಗರೂಕತೆ",h1a:"ತೇವ ಅಥವಾ ಆರ್ದ್ರ ಹವೆ ನಿರೀಕ್ಷಿತ. ಎಲೆ ಮತ್ತು ಗೊಂಚಲುಗಳನ್ನು ಚೆನ್ನಾಗಿ ಪರೀಕ್ಷಿಸಿ ಮತ್ತು ರಕ್ಷಣಾ ಕ್ರಮಗಳ ಬಗ್ಗೆ ತಜ್ಞರನ್ನು ಕೇಳಿ.",h1b:"ಡೌನಿ ಮಿಲ್ಡ್ಯೂಗೆ ಹವೆ ಕಡಿಮೆ ಅನುಕೂಲಕರ, ಆದರೆ ಮಳೆಯ ನಂತರ ಪರೀಕ್ಷಿಸುತ್ತಿರಿ.",
+h2:"ಪೌಡರಿ ಮಿಲ್ಡ್ಯೂ ಜಾಗರೂಕತೆ",h2a:"ಮೋಡ ಕವಿದ, ಸೌಮ್ಯ, ಕಡಿಮೆ ಮಳೆಯ ಹವೆ ನಿರೀಕ್ಷಿತ; ಇದು ಪೌಡರಿ ಮಿಲ್ಡ್ಯೂಗೆ ಅನುಕೂಲ. ಬಿಳಿ ಪುಡಿಯಂತಹ ಪದರ ಗಮನಿಸಿ.",h2b:"ಸಾಮಾನ್ಯ ಮೋಡ, 20–25 °C ಮಾದರಿ ಅಲ್ಲ, ಆದರೂ ಪೌಡರಿ ಮಿಲ್ಡ್ಯೂ ಬರಬಹುದು.",
+h3:"ಸಿಂಪರಣೆಗೆ ಅವಕಾಶ",h3a:"ಮಳೆ ಸಾಧ್ಯತೆ ಇದೆ, ಸಿಂಪರಣೆ ಕೊಚ್ಚಿ ಹೋಗಬಹುದು. ಸಮಯವನ್ನು ನಿಮ್ಮ ಸಲಹೆ ಮತ್ತು ಉತ್ಪನ್ನದ ಲೇಬಲ್‌ನೊಂದಿಗೆ ಪರಿಶೀಲಿಸಿ.",h3b:"ಮಳೆ ಸಾಧ್ಯತೆ ಕಡಿಮೆ. ಸಿಂಪರಣೆ ಸಲಹೆ ಇದ್ದರೆ ಇದು ಹೊಂದಬಹುದು; ಲೇಬಲ್ ಪಾಲಿಸಿ.",
+h4:"ನೀರಾವರಿ",h4a:"ಉತ್ತಮ ಮಳೆ ನಿರೀಕ್ಷಿತ. ನೀರಾವರಿ ಮುಂದೂಡಬಹುದು; ಮೊದಲು ಮಣ್ಣಿನ ತೇವಾಂಶ ಪರೀಕ್ಷಿಸಿ.",h4b:"ಕಡಿಮೆ ಮಳೆ ನಿರೀಕ್ಷಿತ. ಮಣ್ಣಿನ ತೇವಾಂಶ ಮತ್ತು ಬಳ್ಳಿಯ ಹಂತದ ಪ್ರಕಾರ ನೀರಾವರಿ ಯೋಜಿಸಿ.",
+h5:"ಕೊಯ್ಲು ಮತ್ತು ಒಣಗಿಸುವಿಕೆ",h5a:"ಮಳೆ ಅಪಾಯ ಕೊಯ್ಲು, ಸಾಗಣೆ ಮತ್ತು ಒಣದ್ರಾಕ್ಷಿ ಒಣಗಿಸುವಿಕೆಗೆ ಪರಿಣಾಮ ಬೀರಬಹುದು. ಹೊದಿಕೆ ಮತ್ತು ಸಮಯ ಯೋಜಿಸಿ.",h5b:"ಒಣ ಹವೆ. ಹಣ್ಣಿನ ಪಕ್ವತೆ ಮತ್ತು ಮಾರುಕಟ್ಟೆ ವೇಳಾಪಟ್ಟಿ ಖಚಿತಪಡಿಸಿ.",
+base:"ಆಧಾರ:",iss:"ಬಿಡುಗಡೆ",nos:"ಮುನ್ಸೂಚನೆಯ ಮೂಲ ತಿಳಿಸಿಲ್ಲ.",unc:"ಮುನ್ಸೂಚನೆಗಳು ಅನಿಶ್ಚಿತ ಮತ್ತು ಸ್ಥಳದಿಂದ ಸ್ಥಳಕ್ಕೆ ಬದಲಾಗುತ್ತವೆ.",
+wdisc:"ಸೂಚನೆಗಳು ICAR-NRCG ದ್ರಾಕ್ಷಿ ಬುಲೆಟಿನ್‌ನಲ್ಲಿ ವಿವರಿಸಿದ ಪರಿಸ್ಥಿತಿಗಳ (ಡೌನಿ ಮಿಲ್ಡ್ಯೂಗೆ ತೇವಾಂಶ; ಪೌಡರಿ ಮಿಲ್ಡ್ಯೂಗೆ ಮೋಡ, 20–25 °C ಹವೆ) ಆಧಾರಿತ ಸರಳ ನಿಯಮಗಳನ್ನು ಬಳಸುತ್ತವೆ. ಮಿತಿಗಳು ಉದಾಹರಣಾತ್ಮಕ, ಪರೀಕ್ಷಿಸಲ್ಪಟ್ಟಿಲ್ಲ. ಯಾವಾಗಲೂ IMD ಎಚ್ಚರಿಕೆ ಮತ್ತು ನಿಮ್ಮ ಕೃಷಿ ಹವಾಮಾನ ಸಲಹೆ ಪಾಲಿಸಿ."}};
+const D=[
+{n:{en:"Downy mildew",kn:"ಡೌನಿ ಮಿಲ್ಡ್ಯೂ (Downy mildew)"},note:{en:"Linked to moisture on leaves or bunches; spreads fast in humid or rainy spells.",kn:"ಎಲೆ ಅಥವಾ ಗೊಂಚಲಿನ ಮೇಲೆ ತೇವಾಂಶವಿದ್ದರೆ ಹರಡುತ್ತದೆ; ಆರ್ದ್ರ ಅಥವಾ ಮಳೆಯ ದಿನಗಳಲ್ಲಿ ವೇಗವಾಗಿ ಹರಡುತ್ತದೆ."},w:"wet",
+ s:{leaf:[{en:"Yellowish, oily-looking patches on the upper leaf surface",kn:"ಎಲೆಯ ಮೇಲ್ಭಾಗದಲ್ಲಿ ಹಳದಿ, ಎಣ್ಣೆಯಂತಹ ಮಚ್ಚೆಗಳು"},{en:"White downy growth on the underside of those patches",kn:"ಆ ಮಚ್ಚೆಗಳ ಕೆಳಭಾಗದಲ್ಲಿ ಬಿಳಿ ಮೃದು ಬೆಳವಣಿಗೆ"},{en:"Patches turn brown and leaves dry or drop",kn:"ಮಚ್ಚೆಗಳು ಕಂದು ಬಣ್ಣಕ್ಕೆ ತಿರುಗಿ ಎಲೆ ಒಣಗುವುದು ಅಥವಾ ಉದುರುವುದು"}],
+ bunch:[{en:"Young bunches or berries covered with white downy growth",kn:"ಎಳೆಯ ಗೊಂಚಲು ಅಥವಾ ಹಣ್ಣುಗಳ ಮೇಲೆ ಬಿಳಿ ಮೃದು ಬೆಳವಣಿಗೆ"},{en:"Affected berries shrivel or turn brown",kn:"ಬಾಧಿತ ಹಣ್ಣುಗಳು ಸುಕ್ಕಾಗುವುದು ಅಥವಾ ಕಂದಾಗುವುದು"}],
+ shoot:[{en:"Tender shoots or tendrils curl, thicken and show white growth",kn:"ಎಳೆಯ ಚಿಗುರು ಅಥವಾ ಸುರುಳಿಗಳು ಬಾಗಿ, ದಪ್ಪವಾಗಿ ಬಿಳಿ ಬೆಳವಣಿಗೆ ಕಾಣುವುದು"}]}},
+{n:{en:"Powdery mildew",kn:"ಪೌಡರಿ ಮಿಲ್ಡ್ಯೂ (Powdery mildew)"},note:{en:"Favoured by cloudy, relatively warm weather (about 20–25 °C) and dense canopy; can occur without rain.",kn:"ಮೋಡ ಕವಿದ, ಸ್ವಲ್ಪ ಬೆಚ್ಚನೆಯ ಹವೆ (ಸುಮಾರು 20–25 °C) ಮತ್ತು ದಟ್ಟ ಚಪ್ಪರದಲ್ಲಿ ಹೆಚ್ಚು; ಮಳೆ ಇಲ್ಲದೆಯೂ ಬರಬಹುದು."},w:"cloud",
+ s:{leaf:[{en:"White or grey powdery coating on leaves",kn:"ಎಲೆಗಳ ಮೇಲೆ ಬಿಳಿ ಅಥವಾ ಬೂದು ಪುಡಿಯಂತಹ ಪದರ"},{en:"Leaves curl or look distorted under the coating",kn:"ಪದರದ ಕೆಳಗೆ ಎಲೆಗಳು ಸುರುಳಿಯಾಗುವುದು ಅಥವಾ ವಿರೂಪಗೊಳ್ಳುವುದು"}],
+ bunch:[{en:"White powdery coating on berries or bunch stalk",kn:"ಹಣ್ಣುಗಳು ಅಥವಾ ಗೊಂಚಲಿನ ಕಾಂಡದ ಮೇಲೆ ಬಿಳಿ ಪುಡಿಯಂತಹ ಪದರ"},{en:"Berries crack or scar after infection",kn:"ಸೋಂಕಿನ ನಂತರ ಹಣ್ಣುಗಳು ಬಿರಿಯುವುದು ಅಥವಾ ಕಲೆ ಬೀಳುವುದು"}],
+ shoot:[{en:"White powdery film on young shoots",kn:"ಎಳೆಯ ಚಿಗುರುಗಳ ಮೇಲೆ ಬಿಳಿ ಪುಡಿಯಂತಹ ಪೊರೆ"}]}},
+{n:{en:"Anthracnose",kn:"ಆಂತ್ರಾಕ್ನೋಸ್ (Anthracnose)"},note:{en:"Infects tender shoots and leaves in wet conditions.",kn:"ಒದ್ದೆ ವಾತಾವರಣದಲ್ಲಿ ಎಳೆಯ ಚಿಗುರು ಮತ್ತು ಎಲೆಗಳಿಗೆ ಸೋಂಕು ತಗಲುತ್ತದೆ."},w:"wet",
+ s:{leaf:[{en:"Small dark spots with a lighter centre, holes where spots drop out",kn:"ಮಧ್ಯ ತಿಳಿ ಬಣ್ಣದ ಸಣ್ಣ ಕಪ್ಪು ಚುಕ್ಕೆಗಳು; ಚುಕ್ಕೆ ಉದುರಿ ರಂಧ್ರವಾಗುವುದು"}],
+ bunch:[{en:"Small sunken spots with dark edge on berries",kn:"ಹಣ್ಣುಗಳ ಮೇಲೆ ಕಪ್ಪು ಅಂಚಿನ ಸಣ್ಣ ಕುಸಿದ ಕಲೆಗಳು"}],
+ shoot:[{en:"Dark, sunken spots or streaks on tender shoots",kn:"ಎಳೆಯ ಚಿಗುರುಗಳ ಮೇಲೆ ಕಪ್ಪು, ಕುಸಿದ ಕಲೆ ಅಥವಾ ಗೆರೆಗಳು"},{en:"Shoot tips dry out",kn:"ಚಿಗುರಿನ ತುದಿ ಒಣಗುವುದು"}]}}];
+Object.assign(I.en,{title:"Vineyard fieldbook",sub:"Practical tools for checking vine symptoms, comparing market prices and planning around the weather.",mintro:"Enter prices from Agmarknet, e-NAM, the market committee or a trader. Saved prices are shared with signed-in users; field notes stay private to your account.",signIn:"Sign in",authIntro:"Sign in to access your saved field records. New accounts start with the farmer role.",createAccount:"New here? Create a farmer account",createTitle:"Create your farmer account",nameLabel:"Your name",emailLabel:"Email address",passwordLabel:"Password (12 characters minimum)",signOut:"Sign out",roleFarmer:"Farmer",roleAdvisor:"Advisor",roleAdmin:"Administrator",userManagement:"User access",roleHelp:"New registrations are farmers. Change roles here only when you have verified the account.",recordsTitle:"Saved field records",noRecords:"No field records saved yet.",signedOut:"You have signed out.",loginFailed:"Could not connect. Start the backend server and try again.",userRole:"Role",saveFailed:"Could not save this record.",weatherSaved:"Weather plan saved.",diagnosisSaved:"Symptom check saved.",roleSaved:"Role updated. The account must sign in again.",deleteMine:"Clear prices you added",by:"By",plantPart:"Plant part",hintsSaved:"Planning notes",requestFailed:"The request could not be completed.",sourceUser:"Submitted by",priceSaved:"Price saved",clearAllPrices:"Clear all prices"});
+Object.assign(I.kn,{title:"ದ್ರಾಕ್ಷಿ ತೋಟದ ಸಹಾಯಕ",sub:"ಬಳ್ಳಿಯ ಲಕ್ಷಣ ಪರಿಶೀಲನೆ, ಮಾರುಕಟ್ಟೆ ದರ ಹೋಲಿಕೆ ಮತ್ತು ಹವಾಮಾನ ಯೋಜನೆಗೆ ಸರಳ ಸಾಧನಗಳು.",mintro:"ಅಗ್ಮಾರ್ಕ್‌ನೆಟ್, ಇ-ನಾಮ್, ಮಾರುಕಟ್ಟೆ ಸಮಿತಿ ಅಥವಾ ವ್ಯಾಪಾರಿಯಿಂದ ಪಡೆದ ದರಗಳನ್ನು ಸೇರಿಸಿ. ಉಳಿಸಿದ ದರಗಳು ಸೈನ್ ಇನ್ ಮಾಡಿದ ಎಲ್ಲರಿಗೂ ಕಾಣುತ್ತವೆ; ತೋಟದ ಟಿಪ್ಪಣಿಗಳು ನಿಮ್ಮ ಖಾತೆಗೆ ಮಾತ್ರ.",signIn:"ಸೈನ್ ಇನ್",authIntro:"ಉಳಿಸಿದ ತೋಟದ ದಾಖಲೆಗಳನ್ನು ನೋಡಲು ಸೈನ್ ಇನ್ ಮಾಡಿ. ಹೊಸ ಖಾತೆಗಳಿಗೆ ರೈತ ಪಾತ್ರ ನೀಡಲಾಗುತ್ತದೆ.",createAccount:"ಹೊಸಬರೇ? ರೈತ ಖಾತೆ ರಚಿಸಿ",createTitle:"ನಿಮ್ಮ ರೈತ ಖಾತೆ ರಚಿಸಿ",nameLabel:"ನಿಮ್ಮ ಹೆಸರು",emailLabel:"ಇಮೇಲ್ ವಿಳಾಸ",passwordLabel:"ಪಾಸ್‌ವರ್ಡ್ (ಕನಿಷ್ಠ 12 ಅಕ್ಷರಗಳು)",signOut:"ಸೈನ್ ಔಟ್",roleFarmer:"ರೈತ",roleAdvisor:"ಸಲಹೆಗಾರ",roleAdmin:"ನಿರ್ವಾಹಕ",userManagement:"ಬಳಕೆದಾರ ಪ್ರವೇಶ",roleHelp:"ಹೊಸ ಖಾತೆಗಳಿಗೆ ರೈತ ಪಾತ್ರ ಸಿಗುತ್ತದೆ. ಖಾತೆಯನ್ನು ಪರಿಶೀಲಿಸಿದ ನಂತರ ಮಾತ್ರ ಇಲ್ಲಿ ಪಾತ್ರ ಬದಲಿಸಿ.",recordsTitle:"ಉಳಿಸಿದ ತೋಟದ ದಾಖಲೆಗಳು",noRecords:"ಇನ್ನೂ ಯಾವುದೇ ತೋಟದ ದಾಖಲೆ ಉಳಿಸಿಲ್ಲ.",signedOut:"ನೀವು ಸೈನ್ ಔಟ್ ಆಗಿದ್ದೀರಿ.",loginFailed:"ಸಂಪರ್ಕ ಸಾಧ್ಯವಾಗಲಿಲ್ಲ. ಬ್ಯಾಕೆಂಡ್ ಸರ್ವರ್ ಆರಂಭಿಸಿ ಮತ್ತೆ ಪ್ರಯತ್ನಿಸಿ.",userRole:"ಪಾತ್ರ",saveFailed:"ಈ ದಾಖಲೆಯನ್ನು ಉಳಿಸಲಾಗಲಿಲ್ಲ.",weatherSaved:"ಹವಾಮಾನ ಯೋಜನೆ ಉಳಿಸಲಾಗಿದೆ.",diagnosisSaved:"ಲಕ್ಷಣ ಪರಿಶೀಲನೆ ಉಳಿಸಲಾಗಿದೆ.",roleSaved:"ಪಾತ್ರ ಬದಲಾಗಿದೆ. ಖಾತೆ ಮತ್ತೆ ಸೈನ್ ಇನ್ ಮಾಡಬೇಕು.",deleteMine:"ನೀವು ಸೇರಿಸಿದ ದರಗಳನ್ನು ಅಳಿಸಿ",by:"ಇವರಿಂದ",plantPart:"ಬಾಧಿತ ಭಾಗ",hintsSaved:"ಯೋಜನಾ ಸೂಚನೆಗಳು",requestFailed:"ವಿನಂತಿಯನ್ನು ಪೂರ್ಣಗೊಳಿಸಲಾಗಲಿಲ್ಲ.",sourceUser:"ಸಲ್ಲಿಸಿದವರು",priceSaved:"ದರ ಉಳಿಸಲಾಗಿದೆ",clearAllPrices:"ಎಲ್ಲಾ ದರಗಳನ್ನು ಅಳಿಸಿ"});
+let lang='en',shown=false,wshown=false,ticks=new Set(),currentUser=null,L=[];
+try{lang=localStorage.getItem('grape_lang')||(navigator.language||'').startsWith('kn')?'kn':'en';const sv=localStorage.getItem('grape_lang');if(sv)lang=sv}catch(e){}
+const t=k=>I[lang][k];const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+async function api(path,options={}){const response=await fetch(path,{credentials:'same-origin',...options,headers:{...(options.body?{'Content-Type':'application/json'}:{}),...(options.headers||{})}});let data={};try{data=await response.json()}catch(e){}if(!response.ok){if(response.status===401&&currentUser){currentUser=null;showSignedOut()}throw new Error(data.error||t('requestFailed'))}return data}
+function notify(message,error=false){const n=$('notice');n.textContent=message;n.classList.remove('hid','error');if(error)n.classList.add('error')}
+function showSignedOut(){currentUser=null;$('app-shell').classList.add('hid');$('auth').classList.remove('hid');$('auth').querySelector('p').textContent=t('authIntro')}
+function setAuthMode(signUp){$('name-wrap').classList.toggle('hid',!signUp);$('auth-title').textContent=t(signUp?'createTitle':'signIn');$('auth-submit').textContent=t(signUp?'createTitle':'signIn');$('auth-toggle').textContent=t(signUp?'signIn':'createAccount');$('auth-password').autocomplete=signUp?'new-password':'current-password';$('auth-password').minLength=12}
+function roleLabel(role){return t(({farmer:'roleFarmer',advisor:'roleAdvisor',admin:'roleAdmin'})[role])}
+async function loadPrices(){L=(await api('/api/prices')).prices;drawM()}
+async function loadAdminUsers(){if(!currentUser||currentUser.role!=='admin')return;const {users}=await api('/api/admin/users');$('admin-panel').classList.remove('hid');$('users').innerHTML=users.map(u=>`<div class="admin-user"><span><b>${esc(u.name)}</b><br><span class="sm">${esc(u.email)}</span></span><select aria-label="${esc(t('userRole'))}: ${esc(u.name)}" data-user-id="${u.id}">${['farmer','advisor','admin'].map(r=>`<option value="${r}" ${u.role===r?'selected':''}>${esc(roleLabel(r))}</option>`).join('')}</select></div>`).join('');$('users').querySelectorAll('select').forEach(s=>s.onchange=async()=>{try{await api(`/api/admin/users/${s.dataset.userId}/role`,{method:'PATCH',body:JSON.stringify({role:s.value})});notify(t('roleSaved'));await loadAdminUsers()}catch(e){notify(e.message,true);await loadAdminUsers()}})}
+async function loadRecords(){if(!currentUser)return;const [{records:diagnoses},{records:weather}]=await Promise.all([api('/api/diagnoses'),api('/api/weather')]);const all=[...diagnoses.map(r=>({...r,kind:'diagnosis'})),...weather.map(r=>({...r,kind:'weather'}))].sort((a,b)=>b.created_at.localeCompare(a.created_at));$('records-panel').classList.toggle('hid',all.length===0);$('records').innerHTML=all.length?all.map(r=>{const detail=r.kind==='diagnosis'?`${esc(t('plantPart'))}: ${esc(r.plant_part)} · ${esc(JSON.parse(r.results).join(', ')||t('none'))}`:`${esc(t('hint'))}: ${esc(JSON.parse(r.hints).join(' · '))}`;return `<div class="res"><b>${r.kind==='diagnosis'?esc(t('dh')):esc(t('wh'))}</b>${currentUser.role!=='farmer'?` · ${esc(t('sourceUser'))}: ${esc(r.submitted_by)}`:''}<br>${detail}<br><span class="sm">${esc(r.created_at)}</span></div>`}).join(''):`<p class="sm">${esc(t('noRecords'))}</p>`}
+async function refreshAccount(){const {user}=await api('/api/me');currentUser=user;$('auth').classList.add('hid');$('app-shell').classList.remove('hid');$('account-name').textContent=user.name;$('account-role').textContent=roleLabel(user.role);$('auth-password').value='';$('admin-panel').classList.toggle('hid',user.role!=='admin');if(user.role==='admin')await loadAdminUsers();await Promise.all([loadPrices(),loadRecords()])}
+let signingUp=false;
+$('auth-toggle').onclick=()=>{signingUp=!signingUp;setAuthMode(signingUp)};
+$('auth-form').onsubmit=async e=>{e.preventDefault();const submit=$('auth-submit');submit.disabled=true;try{const payload={email:$('auth-email').value.trim(),password:$('auth-password').value};if(signingUp)payload.name=$('auth-name').value.trim();await api(signingUp?'/api/register':'/api/login',{method:'POST',body:JSON.stringify(payload)});await refreshAccount()}catch(error){$('auth').querySelector('p').textContent=error.message}finally{submit.disabled=false}};
+$('logout').onclick=async()=>{try{await api('/api/logout',{method:'POST',body:'{}'});showSignedOut();$('auth').querySelector('p').textContent=t('signedOut')}catch(e){notify(e.message,true)}};
+function apply(){document.documentElement.lang=lang;document.title=t('title');
+ document.querySelectorAll('[data-i]').forEach(e=>{const v=t(e.dataset.i);if(/<b>/.test(v))e.innerHTML=v;else e.textContent=v});
+ document.querySelectorAll('[data-p]').forEach(e=>e.placeholder=t(e.dataset.p));
+ document.querySelectorAll('.lang button').forEach(b=>b.classList.toggle('on',b.dataset.l===lang));
+ drawSyms();if(currentUser)drawM();setAuthMode(signingUp);if(shown)showD();if(wshown)showW()}
+document.querySelectorAll('.lang button').forEach(b=>b.onclick=()=>{lang=b.dataset.l;try{localStorage.setItem('grape_lang',lang)}catch(e){}apply()});
+setAuthMode(signingUp);
+const part=$('part');
+function drawSyms(){const p=part.value;let h='';D.forEach((d,i)=>d.s[p].forEach((x,j)=>{const k=p+i+'_'+j;h+=`<label class="chk"><input type="checkbox" data-k="${k}" data-d="${i}" ${ticks.has(k)?'checked':''}> <span>${x[lang]}</span></label>`}));$('syms').innerHTML=h;
+ $('syms').querySelectorAll('input').forEach(c=>c.onchange=()=>c.checked?ticks.add(c.dataset.k):ticks.delete(c.dataset.k))}
+part.onchange=()=>{shown=false;$('out').innerHTML='';drawSyms()};
+let url='';$('pic').onchange=e=>{const f=e.target.files[0];if(url)URL.revokeObjectURL(url);if(!f){url='';$('pv').classList.add('hid');return}url=URL.createObjectURL(f);$('pv').src=url;$('pv').classList.remove('hid')};
+async function showD(){shown=true;const sc=D.map(()=>0),tot=D.map(()=>0);
+ document.querySelectorAll('#syms input').forEach(c=>{tot[c.dataset.d]++;if(c.checked)sc[c.dataset.d]++});const w=$('wx').value;
+ const r=D.map((d,i)=>({d,v:tot[i]?sc[i]/tot[i]+(sc[i]&&w===d.w?.25:0):0,k:sc[i]})).filter(x=>x.k>0).sort((a,b)=>b.v-a.v);
+ let h=`<div class="card"><h2>${t('matches')}</h2>`+(url?`<img class="ph" src="${url}" alt="">`:'');
+ if(!r.length)h+=`<p>${t('none')}</p>`;
+ r.forEach(x=>{const lv=x.v>=.9?t('l3'):x.v>=.5?t('l2'):t('l1');h+=`<div class="res"><b>${x.d.n[lang]}</b> <span class="badge">${lv}</span><br><span class="sm">${x.d.note[lang]}</span></div>`});
+ if(r.length)h+=`<p class="sm">${t('rank')}</p>`;$('out').innerHTML=h+'</div>';
+ try{await api('/api/diagnoses',{method:'POST',body:JSON.stringify({plant_part:part.value,symptoms:[...document.querySelectorAll('#syms input:checked')].map(c=>c.nextElementSibling.textContent),recent_weather:w,results:r.map(x=>x.d.n[lang])})});notify(t('diagnosisSaved'));await loadRecords()}catch(e){notify(e.message,true)}}
+$('go').onclick=showD;
+
+$('dt').valueAsDate=new Date();$('fi').valueAsDate=new Date();
+function drawM(){const ex=+$('ex').value||0,m={};L.forEach(e=>{const k=e.market.toLowerCase()+'|'+e.variety.toLowerCase();if(!m[k]||e.price_date>m[k].price_date)m[k]=e});
+ const rows=Object.values(m).map(e=>({e,kg:e.unit==='q'?e.price/100:e.price})).sort((a,b)=>b.kg-a.kg),now=new Date();
+ $('tb').innerHTML=rows.length?rows.map(({e,kg})=>{const age=Math.floor((now-new Date(e.price_date))/864e5);return `<tr><td>${esc(e.market)}<br><span class="sm">${esc(e.source||'')}${currentUser.role!=='farmer'?` · ${esc(t('by'))} ${esc(e.submitted_by)}`:''}</span></td><td>${esc(e.variety)}</td><td>${kg.toFixed(1)}</td><td>${(kg-ex).toFixed(1)}</td><td>${esc(e.price_date)} ${age>3?`<span class="badge s">${t('old')}</span>`:''}${e.user_id===currentUser.id||currentUser.role==='admin'?` <button class="g" data-delete-price="${e.id}" aria-label="Delete ${esc(e.market)}">×</button>`:''}</td></tr>`}).join(''):`<tr><td colspan="5">${t('nop')}</td></tr>`;
+ $('tb').querySelectorAll('[data-delete-price]').forEach(b=>b.onclick=async()=>{try{await api(`/api/prices/${b.dataset.deletePrice}`,{method:'DELETE'});await loadPrices()}catch(e){notify(e.message,true)}});
+ $('clr').textContent=t(currentUser.role==='admin'?'clearAllPrices':'clr');
+ $('mnote').textContent=rows.length>1?t('spread').replace('{x}',(rows[0].kg-rows[rows.length-1].kg).toFixed(1)):''}
+$('add').onclick=async()=>{const entry={market:$('mk').value.trim(),variety:$('vr').value.trim()||t('grapes'),price:+$('pr').value,unit:$('un').value,price_date:$('dt').value,source:$('sr').value.trim()};
+ if(!entry.market||!(entry.price>0)||!entry.price_date){notify(t('al'),true);return}try{await api('/api/prices',{method:'POST',body:JSON.stringify(entry)});$('pr').value='';await loadPrices();notify(t('priceSaved'))}catch(error){notify(error.message,true)}};
+$('ex').oninput=drawM;$('clr').onclick=async()=>{const message=currentUser.role==='admin'?t('cc'):t('clearMineConfirm');if(confirm(message)){try{await api('/api/prices',{method:'DELETE'});await loadPrices()}catch(e){notify(e.message,true)}}};
+
+async function showW(){wshown=true;const rc=+$('rc').value||0,rm=+$('rm').value||0,hu=+$('hu').value||0,sk=$('sk').value,tn=$('tn').value,tx=$('tx').value;
+ const avg=(tn!==''&&tx!=='')?(+tn+ +tx)/2:null,wet=rc>=50||rm>=5||(hu>=80&&sk!=='clear'),pw=sk==='over'&&avg!==null&&avg>=20&&avg<=25&&rm<2,rain=rc>=40||rm>=2;
+ const c=[['h1',wet,wet],['h2',pw,pw],['h3',rain,rc>=40],['h4',rm>=10,false],['h5',rc>=40,rc>=40]];
+ const src=$('fs').value?`${t('base')} ${esc($('fs').value)}${$('fi').value?', '+t('iss')+' '+esc($('fi').value):''}.`:t('nos');
+ const hints=c.map(([k,a])=>`${t(k)}: ${t(k+(a?'a':'b'))}`);
+ $('wout').innerHTML=`<div class="card"><h2>${t('hint')}</h2>`+c.map(([k,a,f])=>`<div class="res"><b>${t(k)}</b> ${f?`<span class="badge s">${t('att')}</span>`:''}<br>${t(k+(a?'a':'b'))}</div>`).join('')+`<p class="sm">${src} ${t('unc')}</p></div>`;
+ try{await api('/api/weather',{method:'POST',body:JSON.stringify({rain_chance:rc,expected_rain:rm,humidity:hu,sky:sk,min_temp:tn===''?null:+tn,max_temp:tx===''?null:+tx,source:$('fs').value.trim(),issued_on:$('fi').value||new Date().toISOString().slice(0,10),hints})});notify(t('weatherSaved'));await loadRecords()}catch(e){notify(e.message,true)}}
+$('wg').onclick=showW;
+const tabs=[...document.querySelectorAll('#nav button')];
+function activateTab(tab){tabs.forEach(x=>{const active=x===tab;x.classList.toggle('on',active);x.setAttribute('aria-selected',active?'true':'false');x.tabIndex=active?0:-1});['d','m','w'].forEach(k=>$(k).classList.toggle('hid',k!==tab.dataset.t))}
+tabs.forEach((tab,index)=>{tab.onclick=()=>activateTab(tab);tab.onkeydown=e=>{let next=index;if(e.key==='ArrowRight')next=(index+1)%tabs.length;else if(e.key==='ArrowLeft')next=(index+tabs.length-1)%tabs.length;else if(e.key==='Home')next=0;else if(e.key==='End')next=tabs.length-1;else return;e.preventDefault();tabs[next].focus();tabs[next].click()}});
+I.en.clr='Clear prices you added';I.en.clearMineConfirm='Delete the prices you added?';
+I.kn.clr='ನೀವು ಸೇರಿಸಿದ ದರಗಳನ್ನು ಅಳಿಸಿ';I.kn.clearMineConfirm='ನೀವು ಸೇರಿಸಿದ ದರಗಳನ್ನು ಅಳಿಸಬೇಕೇ?';
+apply();refreshAccount().catch(error=>{if(!['Sign in to continue.','Your session has expired. Sign in again.'].includes(error.message))$('auth').querySelector('p').textContent=error.message==='Failed to fetch'?t('loginFailed'):error.message});
+</script></body></html>
