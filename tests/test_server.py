@@ -154,5 +154,11 @@ class BackendTests(unittest.TestCase):
         self.assertEqual(status, 400)
 
 
+    def test_duplicate_registration_is_rejected(self):
+        farmer = self.client()
+        self.assertEqual(self.register(farmer, "repeat@example.test")[0], 201)
+        duplicate = self.client()
+        self.assertEqual(self.register(duplicate, "repeat@example.test")[0], 409)
+
 if __name__ == "__main__":
     unittest.main()
