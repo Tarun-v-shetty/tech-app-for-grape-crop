@@ -274,5 +274,17 @@ class BackendTests(unittest.TestCase):
             response = error
         self.assertEqual(response.code, 403)
 
+    def test_oversized_api_body_is_rejected(self):
+        payload = b"{" + (b" " * server.MAX_BODY_BYTES) + b"}"
+        request = urllib.request.Request(
+            self.base + "/api/login", data=payload,
+            headers={"Content-Type": "application/json"}, method="POST",
+        )
+        try:
+            response = self.admin.open(request)
+        except urllib.error.HTTPError as error:
+            response = error
+        self.assertEqual(response.code, 413)
+
 if __name__ == "__main__":
     unittest.main()
