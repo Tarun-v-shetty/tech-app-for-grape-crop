@@ -233,5 +233,13 @@ class BackendTests(unittest.TestCase):
         self.assertEqual(self.request(farmer, "/api/logout", {}, "POST")[0], 200)
         self.assertEqual(self.request(farmer, "/api/me")[0], 401)
 
+    def test_role_change_revokes_the_target_users_session(self):
+        farmer = self.client()
+        self.register(farmer, "role-change@example.test")
+        users = self.request(self.admin, "/api/admin/users")[1]["users"]
+        user_id = next(user["id"] for user in users if user["email"] == "role-change@example.test")
+        self.assertEqual(self.request(self.admin, f"/api/admin/users/{user_id}/role", {"role": "advisor"}, "PATCH")[0], 200)
+        self.assertEqual(self.request(farmer, "/api/me")[0], 401)
+
 if __name__ == "__main__":
     unittest.main()
