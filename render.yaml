@@ -1,0 +1,14 @@
+services:
+  - type: web
+    name: vineyard-fieldbook
+    runtime: python
+    plan: free
+    buildCommand: python -m py_compile server.py
+    startCommand: python server.py
+    healthCheckPath: /health
+    autoDeploy: true
+    envVars:
+      - key: GRAPE_HOST
+        value: 0.0.0.0
+      - key: GRAPE_DB_PATH
+        value: /tmp/grape_app.sqlite3

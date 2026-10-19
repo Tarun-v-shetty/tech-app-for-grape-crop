@@ -189,9 +189,11 @@ class GrapeHandler(BaseHTTPRequestHandler):
         self.send_header("X-Content-Type-Options", "nosniff")
         self.send_header("Referrer-Policy", "same-origin")
         if cookie:
-            self.send_header("Set-Cookie", f"grape_session={cookie}; Path=/; HttpOnly; SameSite=Strict; Max-Age={SESSION_SECONDS}")
+            secure = "; Secure" if self.headers.get("X-Forwarded-Proto", "").split(",", 1)[0].strip().lower() == "https" else ""
+            self.send_header("Set-Cookie", f"grape_session={cookie}; Path=/; HttpOnly; SameSite=Strict; Max-Age={SESSION_SECONDS}{secure}")
         elif clear_cookie:
-            self.send_header("Set-Cookie", "grape_session=; Path=/; HttpOnly; SameSite=Strict; Max-Age=0")
+            secure = "; Secure" if self.headers.get("X-Forwarded-Proto", "").split(",", 1)[0].strip().lower() == "https" else ""
+            self.send_header("Set-Cookie", f"grape_session=; Path=/; HttpOnly; SameSite=Strict; Max-Age=0{secure}")
         self.end_headers()
         self.wfile.write(body)
 
@@ -251,6 +253,11 @@ class GrapeHandler(BaseHTTPRequestHandler):
             path = urlsplit(self.path).path
             if path.startswith("/api/"):
                 self.api_get(path)
+                return
+            if path == "/health":
+                with database() as db:
+                    db.execute("SELECT 1")
+                self.send_json(200, {"status": "ok"})
                 return
             if path not in ("/", "/index.html", "/Tech%20App%20for%20Grape%20Crop.html", "/Tech App for Grape Crop.html"):
                 self.send_error(404)
@@ -534,8 +541,8 @@ def main():
             create_admin(email, input("Admin display name: ").strip())
             return
         raise SystemExit("Usage: python server.py [--create-admin EMAIL]")
-    host = os.environ.get("GRAPE_HOST", "127.0.0.1")
-    port = int(os.environ.get("GRAPE_PORT", "8000"))
+    host = os.environ.get("GRAPE_HOST", "0.0.0.0" if os.environ.get("PORT") else "127.0.0.1")
+    port = int(os.environ.get("GRAPE_PORT") or os.environ.get("PORT") or "8000")
     server = ThreadingHTTPServer((host, port), GrapeHandler)
     server.daemon_threads = True
     print(f"Vineyard Fieldbook running at http://{host}:{port}")

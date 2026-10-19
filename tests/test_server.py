@@ -144,6 +144,12 @@ class BackendTests(unittest.TestCase):
         self.assertEqual(self.request(anonymous, "/api/prices")[0], 401)
         self.assertEqual(self.request(anonymous, "/api/weather", {}, "POST")[0], 401)
 
+    def test_health_check_confirms_the_database_is_ready(self):
+        request = urllib.request.Request(self.base + "/health")
+        with urllib.request.urlopen(request) as response:
+            self.assertEqual(response.status, 200)
+            self.assertEqual(json.loads(response.read()), {"status": "ok"})
+
     def test_invalid_market_values_are_rejected(self):
         farmer = self.client()
         self.register(farmer, "invalid@example.test")
